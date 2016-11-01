@@ -27,6 +27,6 @@ Library verifies following data:
  - If audience is equal to Client ID
  - If signature is valid (automatically downloads certificates from Google servers and keep them in memory until they expires).
  
-## Google JWT
+## Get Google JWT
 
 You can obtain a Google JWT (a.k.a. *idToken*) with [just_google_signin](https://github.com/deftomat/just_google_signin) library.
