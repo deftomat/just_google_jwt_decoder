@@ -1,8 +1,8 @@
-name: just_google_jwt_verifier
-description: A Google JWT verifier library.
+name: just_google_jwt_decoder
+description: A Google JWT decoder library.
 version: 0.1.0
 author: Tomas Szabo <tomas.szabo@deftomat.com>
-homepage: https://github.com/deftomat/just_google_jwt_verifier
+homepage: https://github.com/deftomat/just_google_jwt_decoder
 
 environment:
   sdk: '>=1.16.0 <2.0.0'
