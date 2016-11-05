@@ -10,20 +10,23 @@ TokenVerifier signatureVerifier({String certificatesUrl: 'https://www.googleapis
       certificates = await _fetchCertificates(certificatesUrl);
     }
 
-    var cert = certificates.certificate(kid);
+    var cert = certificates.findCertificate(kid);
     return _toRS256TokenVerifier(cert);
   }
 
   return (ToVerify toVerify) async {
-    var kid = toVerify.jwt.header['kid'];
-    var tokenVerifier = tokenVerifiers[kid] ??= await createTokenVerifier(kid);
+    try {
+      var kid = toVerify.jwt.header['kid'];
+      var tokenVerifier = tokenVerifiers[kid] ??= await createTokenVerifier(kid);
 
-    return tokenVerifier(toVerify);
+      return tokenVerifier(toVerify);
+    } on _InvalidKeyId {
+      return false;
+    }
   };
 }
 
 Future<_Certificates> _fetchCertificates(String url) async {
-  print('fetching...');
   var response = await http.get(url);
 
   var certificates = JSON.decode(response.body)['keys'];
@@ -43,11 +46,17 @@ class _Certificates {
     return now.millisecondsSinceEpoch >= expires.millisecondsSinceEpoch;
   }
 
-  Map certificate(String kid) {
+  Map findCertificate(String kid) {
     return _certificates.firstWhere(
         (cert) => cert['kid'] == kid,
-        orElse: () => throw new Exception('KID not found!'));
+        orElse: () => throw new _InvalidKeyId(kid));
   }
+}
+
+class _InvalidKeyId implements Exception {
+  final String kid;
+
+  _InvalidKeyId(this.kid);
 }
 
 TokenVerifier _toRS256TokenVerifier(Map cert) {
