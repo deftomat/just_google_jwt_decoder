@@ -11,3 +11,7 @@
 ## 0.1.2
 
 - library re-exports ```Jwt``` and ```EncodedJwt``` classes from ```JustJwt``` library.
+
+## 0.1.3
+
+- library re-exports ```JwtVerificationError``` class from ```JustJwt``` library.
