@@ -21,11 +21,11 @@ main() async {
 ## Verification
 
 Library verifies following data:
- - If issuer is Google Accounts server
- - If user's email is verified
- - If JWT not expires
- - If audience is equal to Client ID
- - If signature is valid (automatically downloads certificates from Google servers and keep them in memory until they expires).
+ - Whether issuer is Google Accounts server
+ - Whether user's email is verified
+ - Whether JWT not expires
+ - Whether audience is equal to Client ID
+ - Whether signature is valid (automatically downloads certificates from Google servers and keep them in memory until they expires).
  
 ## Get Google JWT
 
